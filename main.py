@@ -1,17 +1,15 @@
-# This is a sample Python script.
+# main.py
+# Interacts with the MongoDB cluster, Clarity API, and ArcGIS dashboard.
 
 # Press Shift+F10 to execute it or replace it with your code.
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 
-# db_interface.py
-# @author Vincent Li <vincentl@asu.edu>
-# Code to interact with the MongoDB cluster of PM2.5 data
 # Need to install PyMongo first by doing "python -m pip install 'pymongo[srv]'"
-from bottle import route, run, template, get, post, request
-from pymongo import MongoClient
+from bottle import route, run, template, get, post, request # bottle server
+from pymongo import MongoClient # MongoDB
 import datetime
 
-from pprint import pprint  # pretty print ofr debugging
+from pprint import pprint  # pretty print for debugging
 
 client = MongoClient('mongodb+srv://bottle_server:#poOp480@pm2p5.bap2s.mongodb.net/data?retryWrites=true&w=majority')
 db = client['data']  # access the 'data' db
@@ -64,7 +62,6 @@ def addData(arrayOfDocs):
     pm2p5.insert_many(arrayOfDocs)
 
 
-#
 def getValues(sensorID, startYear, startMonth, startDay, endYear, endMonth, endDay):
     """
         Gets a sensors data between two dates.
@@ -94,11 +91,6 @@ def get_values_latest(id_list_tmp):
         new_values.append(getLatestValue(y))
     pprint(new_values)
 
-
-@route('/hello')
-def index(name):
-    print("R1")
-    return template('<b>Hello</b>!')
 
 
 @get('/login')  # or @route('/login')
