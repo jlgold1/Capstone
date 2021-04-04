@@ -4,13 +4,19 @@
 
 import pyodbc   # python driver for SQL server
 
-SERVER = 'localhost\SQLEXPRESS' # server location
+SERVER = 'tcp:southphoenixaq.database.windows.net,1433' # server location
 DATABASE = 'SensorData'
+username = 'azureuser'
+pw = '#poopyHead480'
 sensorDetailsTable = '.dbo.SensorDetails'
 pm2p5CalTable = '.dbo.PM2p5Calibrated'
-connection = pyodbc.connect('Driver={SQL Server};SERVER=' + SERVER + 
-                            ';DATABASE=' + DATABASE + 
-                            ';Trusted_Connection=yes;')
+connection = pyodbc.connect('Driver={ODBC Driver 17 for SQL Server};Server=' + SERVER + 
+                            ';Database=' + DATABASE + 
+                            ';Uid=' + username +
+                            ';Pwd=' + pw +
+                            ';Encrypt=yes;'
+                            'TrustServerCertificate=no;'
+                            'Connection Timeout=30;')
 
 cursor = connection.cursor()
 # test connection
